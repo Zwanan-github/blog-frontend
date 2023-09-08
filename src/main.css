@@ -1,0 +1,101 @@
+
+.scroll-to-top {
+    position: fixed;
+    right: 2rem;
+    bottom: 7rem;
+    z-index: 9999;
+}
+
+:root {
+    --fonts-emoji: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla" !important;
+    --fonts-proportional: "LXGW WenKai Screen", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, var(--fonts-emoji) !important;
+    --fonts-monospace: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace, var(--fonts-proportional) !important;
+}
+
+html, body, .v-application [class*="text-"] {
+    font-family: var(--fonts-proportional) !important;
+}
+
+code, kbd, pre, samp {
+    font-family: var(--fonts-monospace) !important;
+}
+
+.md-editor-catalog-active > span {
+    color: rgb(var(--v-theme-primary)) !important;
+}
+
+.md-editor-catalog-link span:hover {
+    color: rgb(var(--v-theme-primary)) !important;
+}
+
+.md-editor, .md-editor-dark {
+    --md-bk-color: rgb(var(--v-theme-background)) !important;
+}
+
+.md-editor .default-theme {
+    --md-theme-link-color: rgb(var(--v-theme-primary)) !important;
+    --md-theme-link-hover-color: rgb(var(--v-theme-primary)) !important;
+}
+
+.md-editor .default-theme a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.md-editor .default-theme blockquote {
+    border-left: 5px solid rgb(var(--v-theme-primary)) !important;
+}
+
+.site-info {
+    position: absolute;
+    inset: 10% 4%;
+    background-color: rgba(var(--v-theme-background), 0.5);
+    backdrop-filter: blur(6px);
+    border-radius: 24px;
+    transition: transform 0.2s;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.site-info:hover {
+    transform: scale(1.03);
+}
+
+.cover-container {
+    height: 125px;
+    overflow: hidden;
+}
+
+.cover {
+    transition: transform 0.2s;
+}
+
+.cover-link:hover .cover {
+    transform: scale(1.1);
+}
+
+.article-name {
+    padding: 0.5rem 1rem;
+}
+
+.catalog ::-webkit-scrollbar {
+    width: 2px;
+}
+
+.catalog ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.catalog ::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.drawer-btn {
+    position: fixed;
+    right: 2rem;
+    bottom: 3rem;
+    z-index: 100;
+}
