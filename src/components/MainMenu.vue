@@ -13,7 +13,7 @@ const logout = () => {
 </script>
 
 <template>
-    <v-navigation-drawer :width="useSetting.inMobile?'250':0" class="d-flex d-md-none mt-16" border="none"
+    <v-navigation-drawer :width="useSetting.inMobile?'250':0" class="d-flex d-md-none position-fixed catalog mt-16" border="none"
                          location="left"
                          v-model="useSetting.openMenu">
         <v-list>
