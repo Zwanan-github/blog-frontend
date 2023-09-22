@@ -45,14 +45,20 @@ const logout = () => {
             <v-list-item v-if="!useSetting.isLogin" key="3" value="登录" color="blue" base-color="blue">
                 <v-list-item-title @click="useSetting.loginDialog=true">登录</v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="useSetting.isLogin" key="4" value="个人信息" color="blue" base-color="blue">
+            <v-list-item v-if="useSetting.isLogin" key="5" value="个人信息" color="blue" base-color="blue">
                 <v-list-item-title @click="useSetting.accountInfoDialog=true">个人信息</v-list-item-title>
             </v-list-item>
-            <v-list-item v-if="useSetting.permission.includes('ROLE_article_add')" to="/edit" key="6" value="新的文章" color="blue" base-color="blue">
+            <v-list-item v-if="useSetting.permission.includes('ROLE_article_add')" key="6" to="/edit" value="新的文章" color="blue" base-color="blue">
                 <v-list-item-title>新的文章</v-list-item-title>
             </v-list-item>
             <v-divider/>
-            <v-list-item v-if="useSetting.isLogin" key="5" value="退出登录" color="red" base-color="red">
+            <v-list-item v-if="useSetting.permission.includes('ROLE_setting_update')" key="7" to="/settings" value="网站设置" color="blue" base-color="blue">
+                <v-list-item-title>网站设置</v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="useSetting.permission.includes('ROLE_setting_update')" key="8" to="/images" value="网站图床" color="blue" base-color="blue">
+                <v-list-item-title>网站图床</v-list-item-title>
+            </v-list-item>
+            <v-list-item v-if="useSetting.isLogin" key="4" value="退出登录" color="red" base-color="red">
                 <v-list-item-title @click="logout">退出登录</v-list-item-title>
             </v-list-item>
         </v-list>

@@ -5,11 +5,9 @@ import App from './App.vue'
 import router from './router'
 
 // Vuetify
-import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import colors from 'vuetify/lib/util/colors'
-// mdi
-import '@mdi/font/css/materialdesignicons.css'
+
 import {zhHans} from "vuetify/locale";
 
 // markdown
@@ -43,6 +41,15 @@ const vuetify = createVuetify({
         },
     },
 })
+
+// 注册 Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+        .then(() => console.log('Service Worker 注册成功'))
+        .catch((error) => console.log('Service Worker 注册失败:', error))
+} else {
+    console.warn('当前浏览器不支持 Service Worker')
+}
 
 const app = createApp(App)
 

@@ -42,6 +42,10 @@ fetchArticle()
 /// endregion 删除 tag
 
 /// region 切换 tag 时的监听
+watch(tag, () => {
+    if (tag.value === '') return
+    fetchArticle()
+})
 watch(page, fetchArticle)
 /// endregion 切换 tag 时的监听
 

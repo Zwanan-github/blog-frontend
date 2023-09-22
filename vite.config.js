@@ -49,7 +49,8 @@ export default defineConfig({
     proxy: {
       // api请求转发至后端
       '/api/': {
-        target: 'http://175.178.78.202:8080/',
+        // target: 'http://localhost:8888/',
+        target: 'http://123.60.107.63:8080/',
         changeOrigin: true,
         followRedirects: true,
         rewrite: (path) => path.replace(/^\/api/, ''),

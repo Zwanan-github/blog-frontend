@@ -4,46 +4,39 @@ import { api, API_URL } from '@/api'
 import { MdEditor } from 'md-editor-v3'
 import { useThemeStore } from '@/stores/theme'
 import 'https://cdn.staticfile.org/compressorjs/1.2.1/compressor.min.js'
+import {useLocalStorage} from "@vueuse/core";
 
-// const props = defineProps({
-//     articleData: { type: Object },
-// })
+const props = defineProps({
+    articleData: { type: Object },
+})
 
 const emits = defineEmits(['submit'])
 
 const themeStore = useThemeStore()
 
 // 判断是否是新文章
-// const isNewArticle = !(props.articleData?.id > 0)
+const isNewArticle = !(props.articleData?.id > 0)
 
-/// region 文章编辑持久化
-// const storageKey = isNewArticle ? 'draft_new' : `draft_id_${props.articleData.id}`
+// region 文章编辑持久化
+const storageKey = isNewArticle ? 'draft_new' : `draft_id_${props.articleData.id}`
 // 编辑的草稿存放在 LocalStorage
-// const makeDraft = () => {
-//     if (!isNewArticle
-//         && localStorage.getItem(storageKey)
-//         && !window.confirm('读取到上次编辑的内容，是否继续？')) {
-//         localStorage.removeItem(storageKey)
-//     }
-//     return useLocalStorage(storageKey, props.articleData ?? {
-//         id: 0,
-//         name: '',
-//         path: '',
-//         cover: '',
-//         content: '',
-//         tagNames: [],
-//     })
-// }
+const makeDraft = () => {
+    if (!isNewArticle
+        && localStorage.getItem(storageKey)
+        && !window.confirm('读取到上次编辑的内容，是否继续？')) {
+        localStorage.removeItem(storageKey)
+    }
+    return useLocalStorage(storageKey, props.articleData ?? {
+        id: 0,
+        name: '',
+        path: '',
+        cover: '',
+        content: '',
+        tagNames: [],
+    })
+}
 
-const draft = ref({
-    id: 0,
-    name: '',
-    path: '',
-    cover: '',
-    content: '',
-    tags: [],
-    isDelete: 0
-})
+const draft = makeDraft()
 /// endregion 文章编辑持久化
 
 /// region 标签数据
@@ -58,8 +51,8 @@ const getTagList = async () => {
     }
     tagData.value = req_tags.map((tag) => tag.name)
     // 去除无效标签
-    draft.value.tags = draft.value.tags
-        .filter((tag) => tagData.value.includes(tag))
+    draft.value.tagNames = draft.value.tagNames
+        .filter((tagName) => tagData.value.includes(tagName))
 }
 getTagList()
 /// endregion 标签数据
@@ -109,11 +102,10 @@ const saveError = ref(null)
 const saveArticle = async () => {
     saveError.value = null
     saving.value = true
-    // const method = isNewArticle ? 'POST' : 'PUT'
-    const method = 'POST'
+    const method = isNewArticle ? 'POST' : 'PUT'
     try {
         const path = await api(`/article`, method, draft.value)
-        // localStorage.removeItem(storageKey)
+        localStorage.removeItem(storageKey)
         // 将文章路径传递给父组件
         emits('submit', path)
     } catch (e) {
@@ -144,7 +136,7 @@ const saveArticle = async () => {
                         <v-text-field v-model="draft.cover" label="封面链接"></v-text-field>
                     </v-col>
                     <v-col cols="6">
-                        <v-select v-model="draft.tags" :items="tagData ?? []" label="标签"
+                        <v-select v-model="draft.tagNames" :items="tagData ?? []" label="标签"
                                   variant="underlined" chips multiple>
                         </v-select>
                     </v-col>

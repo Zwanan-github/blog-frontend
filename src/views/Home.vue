@@ -41,12 +41,12 @@ useTitle(`主页 - ${ useSetting.settings?.siteTitle ?? '博客' }`)
             <div class="site-info">
                 <v-avatar :image="useSetting.settings?.avatar" size="80"></v-avatar>
                 <div class="ml-4">
-                    <h2 class="text-high-emphasis">Zwanan'Blog</h2>
-                    <p class="text-body-2 text-medium-emphasis">天天开心</p>
-                    <a href="#"
+                    <h2 class="text-high-emphasis">{{ useSetting.settings.siteTitle }}</h2>
+                    <p class="text-body-2 text-medium-emphasis">{{ useSetting.settings.info }}</p>
+                    <v-chip to="/about-me"
                        class=" text-body-2 text-decoration-none text-medium-emphasis">
-                        Zwanan
-                    </a>
+                        About Me
+                    </v-chip>
                 </div>
             </div>
         </div>

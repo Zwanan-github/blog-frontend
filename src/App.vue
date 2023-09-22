@@ -59,7 +59,7 @@ useFavicon(favicon)
                 <a class="text-none v-btn--variant-text" :href="`mailto:${useSetting.settings?.email}`" target="_blank">
                     <v-btn icon="mdi-at"></v-btn>
                 </a>
-                <a class="text-none v-btn--variant-text" href="https://github.com/Zwanan-github"
+                <a class="text-none v-btn--variant-text" :href="useSetting.settings.repository"
                    target="_blank">
                     <v-btn icon="mdi-github"></v-btn>
                 </a>
@@ -69,14 +69,20 @@ useFavicon(favicon)
                         <v-btn v-bind="props" class="d-none d-sm-flex" v-if="useSetting.isLogin" icon="mdi-account" @click="useSetting.loginDialog=true"></v-btn>
                     </template>
                     <v-list density="comfortable">
-                        <v-list-item v-if="useSetting.isLogin" key="4" value="个人信息" color="blue" base-color="blue">
+                        <v-list-item v-if="useSetting.isLogin" key="5" value="个人信息" color="blue" base-color="blue">
                             <v-list-item-title @click="useSetting.accountInfoDialog=true">个人信息</v-list-item-title>
                         </v-list-item>
                         <v-list-item v-if="useSetting.permission.includes('ROLE_article_add')" key="6" to="/edit" value="新的文章" color="blue" base-color="blue">
                             <v-list-item-title>新的文章</v-list-item-title>
                         </v-list-item>
                         <v-divider/>
-                        <v-list-item v-if="useSetting.isLogin" key="5" value="退出登录" color="red" base-color="red">
+                        <v-list-item v-if="useSetting.permission.includes('ROLE_setting_update')" key="7" to="/settings" value="网站设置" color="blue" base-color="blue">
+                            <v-list-item-title>网站设置</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item v-if="useSetting.permission.includes('ROLE_setting_update')" key="8" to="/images" value="网站图床" color="blue" base-color="blue">
+                            <v-list-item-title>网站图床</v-list-item-title>
+                        </v-list-item>
+                        <v-list-item v-if="useSetting.isLogin" key="4" value="退出登录" color="red" base-color="red">
                             <v-list-item-title @click="logout">退出登录</v-list-item-title>
                         </v-list-item>
                     </v-list>
@@ -95,8 +101,9 @@ useFavicon(favicon)
                                icon="mdi-arrow-up" @click="scrollToTop"></v-btn>
                     </template>
                 </v-tooltip>
-                <footer class="text-center pt-2 pb-3 text-body-2 text-medium-emphasis">
-                    {{ useSetting.settings?.footer }}
+                <footer class="text-center pt-2 pb-3 text-body-2 text-medium-emphasis"
+                        v-html="useSetting.settings?.footer">
+
                 </footer>
             </v-main>
         </v-layout>
